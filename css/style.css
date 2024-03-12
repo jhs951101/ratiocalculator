@@ -1,0 +1,56 @@
+body {
+    color: #000000;
+    font-family: 'Nanum Gothic';
+    font-size: 18px;
+}
+
+.view {
+    width: 80%;
+    left: 50%;  /* 문단 가운데 정렬 */
+    position: absolute;
+    transform: translateX(-50%);
+    text-align: center;  /* 문단 내 객체 가운데 정렬 */
+}
+
+.textbox {
+    width: 120px;
+    height: 35px;
+    font-size: 18px;
+    padding: 5px;
+}
+
+.button1 {
+    width: 270px;
+    height: 45px;
+    font-size: 18px;
+    font-weight: bold;
+    color: #FFFFFF;
+    border: none;
+    background-color: #888888;
+}
+
+.button2 {
+    width: 270px;
+    height: 45px;
+    font-size: 18px;
+    font-weight: bold;
+    color: #444444;
+    border: 2px solid #888888;
+    background-color: #EEEEEE;
+}
+
+.button1:hover {
+    color: #FFFFFF;
+    border: none;
+    background-color: #111111;
+}
+
+.button2:hover {
+    color: #FFFFFF;
+    border: none;
+    background-color: #111111;
+}
+
+.paragraph {
+    margin-top: 20px;
+}

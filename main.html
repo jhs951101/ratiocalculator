@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+	<head>
+		<meta charset='utf-8'>
+		<meta name='viewport' content='width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0'>
+		<link rel='stylesheet' href='css/style.css'>
+		<title>
+			비율계산기 (Ratio Calculator)
+		</title>
+		<script src='https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js' type='text/javascript'></script>
+		<script type='text/javascript'>
+			var maxId = 1;
+			const item_originalHtml = `<div id='itemDiv_<_id_>' name='itemDiv_<_id_>' class='paragraph' >
+					<div style='display: inline-block;' >
+						<input id='widthTbox_<_id_>' name='widthTbox_<_id_>' type='number' class='textbox' placeholder='가로 (Width)' >
+							:
+						<input id='heightTbox_<_id_>' name='heightTbox_<_id_>' type='text' class='textbox' value='?' readonly >
+					</div>
+					<div style='display: inline-block;' >
+						<button onclick='removeItem(<_id_>)' class='button2' style='margin-left: 5px; width: 160px; height: 45px;' >
+							삭제 (Remove)
+						</button>
+					</div>
+				</div>`;
+
+			window.onload = function(){
+				clearItems();
+			}
+
+			function clearItems(){
+				$('#itemListDiv').empty();
+				maxId = 1;
+
+				addItem();
+			}
+
+			function addItem(){
+				var html = item_originalHtml;
+				html = html.replaceAll('<_id_>', maxId + '');
+				maxId++;
+
+				$('#itemListDiv').append(html);
+			}
+
+			function removeItem(id){
+				document.getElementById('itemDiv_' + id).remove();
+			}
+
+			function calculate(){
+				const mainWidthTbox = document.getElementById('mainWidthTbox');
+				const mainHeightTbox = document.getElementById('mainHeightTbox');
+
+				var mainWidth = mainWidthTbox.value;
+				var mainHeight = mainHeightTbox.value;
+
+				if(!mainWidth){
+					alert('가로 길이를 입력하십시오.');
+					mainWidthTbox.focus();
+					return;
+				}
+				else if(!mainHeight){
+					alert('세로 길이를 입력하십시오.');
+					mainHeightTbox.focus();
+					return;
+				}
+
+				mainWidth *= 1;
+				mainHeight *= 1;
+
+				for(var i=1; i<maxId; i++){
+					const widthTbox = document.getElementById('widthTbox_' + i);
+					const heightTbox = document.getElementById('heightTbox_' + i);
+
+					if(!widthTbox || !heightTbox){
+						continue;
+					}
+
+					var width = widthTbox.value;
+
+					if(!width){
+						heightTbox.value = '?';
+						continue;
+					}
+
+					width *= 1;
+					const result = width * mainHeight / mainWidth;
+					heightTbox.value = result;
+				}
+			}
+		</script>
+	</head>
+	<body>
+		<div class='view' >
+			<div class='paragraph' >
+				<div style='color: #000077; font-size: 30px; font-weight: bold;' >
+					비율계산기 (Ratio Calculator)
+				</div>
+			</div>
+			<div style='margin-top: 0px;' >
+				<div style='font-size: 15px; color: #777777' >
+					Made by JiHoon Sim (@jihoon_rounder)
+				</div>
+			</div>
+			<div class='paragraph' >
+				<input id='mainWidthTbox' name='mainWidthTbox' type='number' class='textbox' placeholder='가로 (Width)' >
+				:
+				<input id='mainHeightTbox' name='mainHeightTbox' type='number' class='textbox' placeholder='세로 (Height)' >
+			</div>
+			<div class='paragraph' >
+				<button onclick='calculate()' class='button1' >
+					계산하기 (Calculate)
+				</button>
+			</div>
+			<div class='paragraph' >
+				<button onclick='addItem()' class='button2' >
+					추가하기 (Add)
+				</button>
+			</div>
+			<div id='itemListDiv' name='itemListDiv' style='margin-top: 50px;' >
+				<!--
+				<div id='itemDiv_1' name='itemDiv_1' class='paragraph' >
+					<div style='display: inline-block;' >
+						<input id='widthTbox_1' name='widthTbox_1' type='number' class='textbox' placeholder='가로 (Width)' >
+							:
+						<input id='heightTbox_1' name='heightTbox_1' type='text' class='textbox' value='?' readonly >
+					</div>
+					<div style='display: inline-block;' >
+						<button onclick='removeItem(1)' class='button2' style='margin-left: 5px; width: 160px; height: 45px;' >
+							삭제 (Remove)
+						</button>
+					</div>
+				</div>
+				-->
+			</div>
+			<div class='paragraph' >
+				<button onclick='clearItems()' class='button2' >
+					전체 삭제 (Remove All)
+				</button>
+			</div>
+		</div>
+	</body>
+</html>
